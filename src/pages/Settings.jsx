@@ -1,25 +1,19 @@
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase/firebaseConfig";
+import { useNavigate } from "react-router-dom";
 
 function Settings() {
+  const navigate = useNavigate();
 
   const logout = async () => {
-
     await signOut(auth);
-
-    alert("Logged Out");
-
+    navigate("/");
   };
 
   return (
-    <div>
-
+    <div className="page">
       <h2>Settings</h2>
-
-      <button onClick={logout}>
-        Logout
-      </button>
-
+      <button onClick={logout} className="btn-danger">Logout</button>
     </div>
   );
 }

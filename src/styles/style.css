@@ -1,25 +1,407 @@
-body{
- font-family:Arial;
- margin:0;
- padding:0;
+/* ============================================================
+   GOOGLE FONTS
+   - Poppins for headings (friendly, modern, geometric)
+   - Inter for body text (highly legible, clean, professional)
+   Using two complementary fonts is a small but effective upgrade.
+============================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Poppins:wght@600;700&display=swap');
+
+/* ============================================================
+   CSS VARIABLES
+   Keeping all your colors and values in one place makes it
+   much easier to maintain and update your design later on.
+============================================================ */
+:root {
+  --primary:       #2563eb;   /* slightly more modern blue */
+  --primary-dark:  #1d4ed8;
+  --primary-light: #eff6ff;
+  --danger:        #dc2626;
+  --danger-dark:   #b91c1c;
+  --success-bg:    #dcfce7;
+  --success-text:  #166534;
+  --error-bg:      #fee2e2;
+  --error-text:    #991b1b;
+  --bg:            #f8fafc;   /* cooler, softer background */
+  --surface:       #ffffff;
+  --border:        #e2e8f0;
+  --text:          #0f172a;
+  --text-muted:    #64748b;
+  --radius:        10px;
+  --shadow-sm:     0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md:     0 4px 12px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 
-nav{
- background:#0d6efd;
- padding:15px;
+/* ============================================================
+   RESET & BASE
+   box-sizing: border-box is a best practice — it makes sizing
+   elements much more predictable across your whole project.
+============================================================ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-nav a{
- color:white;
- margin-right:15px;
- text-decoration:none;
+body {
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  /* Smooth font rendering on Mac/modern screens */
+  -webkit-font-smoothing: antialiased;
 }
 
-div{
- padding:20px;
+/* ============================================================
+   NAVBAR
+   Using justify-content: space-between is cleaner than
+   margin-right: auto on the title — clearer intent.
+============================================================ */
+nav {
+  background: var(--primary);
+  padding: 14px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  /* A slightly stronger shadow to ground the navbar */
+  box-shadow: 0 2px 10px rgba(37, 99, 235, 0.3);
 }
 
-button{
- padding:10px;
- margin-top:10px;
+nav h2 {
+  font-family: 'Poppins', sans-serif;
+  color: white;
+  font-size: 1.15rem;
+  letter-spacing: 0.3px;
+}
+
+/* Grouping nav links in a wrapper div gives you more
+   layout control without extra CSS hacks */
+nav .nav-links {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+nav a {
+  color: rgba(255, 255, 255, 0.88);
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  padding: 6px 14px;
+  border-radius: 6px;
+  transition: background 0.18s ease, color 0.18s ease;
+}
+
+nav a:hover {
+  background: rgba(255, 255, 255, 0.18);
+  color: white;
+}
+
+/* ============================================================
+   PAGE CONTAINER
+   Centering with margin: auto and a max-width is the simplest
+   and most reliable way to constrain content width.
+============================================================ */
+.page {
+  max-width: 780px;
+  margin: 48px auto;
+  padding: 36px 40px;
+  background: var(--surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+  /* A subtle top border accent adds personality without clutter */
+  border-top: 3px solid var(--primary);
+}
+
+.page h2 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.4rem;
+  color: var(--primary);
+  padding-bottom: 12px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* ============================================================
+   INPUTS
+   Removing the outline and replacing it with a border + shadow
+   on focus gives a much more polished feel.
+============================================================ */
+input[type="email"],
+input[type="password"],
+input[type="text"],
+.input-field {
+  display: block;
+  width: 100%;
+  padding: 10px 14px;
+  margin-bottom: 14px;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-family: 'Inter', sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="text"]:focus,
+.input-field:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+  background: white;
+}
+
+select.input-field {
+  cursor: pointer;
+}
+
+/* ============================================================
+   BUTTONS
+   Consistent padding, smooth transitions, and a slight
+   translateY on hover makes buttons feel more interactive.
+============================================================ */
+button,
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 10px 26px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+  box-shadow: 0 1px 3px rgba(37, 99, 235, 0.3);
+}
+
+button:hover,
+.btn-primary:hover {
+  background: var(--primary-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.25);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+button:disabled {
+  background: #94a3b8;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.btn-danger {
+  background: var(--danger);
+  box-shadow: 0 1px 3px rgba(220, 38, 38, 0.3);
+}
+
+.btn-danger:hover {
+  background: var(--danger-dark);
+  box-shadow: 0 4px 10px rgba(220, 38, 38, 0.25);
+}
+
+/* ============================================================
+   FEEDBACK MESSAGES
+   Slightly softer colors and a left border accent makes these
+   feel less like raw alerts and more like proper UI components.
+============================================================ */
+.msg-success,
+.msg-error {
+  margin-top: 14px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border-left: 4px solid;
+}
+
+.msg-success {
+  background: var(--success-bg);
+  color: var(--success-text);
+  border-color: #4ade80;
+}
+
+.msg-error {
+  background: var(--error-bg);
+  color: var(--error-text);
+  border-color: #f87171;
+}
+
+/* ============================================================
+   PARKING SLOTS GRID
+   auto-fill with minmax is a great way to make a responsive
+   grid without writing any media queries for it.
+============================================================ */
+.slots-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.slot-card {
+  padding: 22px 16px;
+  border-radius: var(--radius);
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  /* A subtle transition makes the card feel alive on hover */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: default;
+}
+
+.slot-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+.slot-card span {
+  font-size: 1.4rem;
+}
+
+.slot-card small {
+  font-size: 0.72rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.available {
+  background: #dcfce7;
+  color: #166534;
+  border: 2px solid #86efac;
+}
+
+.occupied {
+  background: #fee2e2;
+  color: #991b1b;
+  border: 2px solid #fca5a5;
+}
+
+/* ============================================================
+   HISTORY TABLE
+   Zebra striping (nth-child) is a simple readability trick
+   for tables with multiple rows of data.
+============================================================ */
+.history-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-size: 0.9rem;
+  border-radius: var(--radius);
+  overflow: hidden; /* clips the border-radius on th */
+  box-shadow: var(--shadow-sm);
+}
+
+.history-table th {
+  background: var(--primary);
+  color: white;
+  padding: 12px 16px;
+  text-align: left;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+.history-table td {
+  padding: 11px 16px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+}
+
+/* Zebra striping for easier row scanning */
+.history-table tbody tr:nth-child(even) td {
+  background: #f8fafc;
+}
+
+.history-table tbody tr:hover td {
+  background: var(--primary-light);
+}
+
+/* ============================================================
+   PROFILE CARD
+   A clean inset card with key-value pairs formatted clearly.
+============================================================ */
+.profile-card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.profile-card p {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  flex-wrap: wrap;
+}
+
+.profile-card p strong {
+  color: var(--primary);
+  font-weight: 600;
+  min-width: 130px; /* Aligns values into a consistent column */
+}
+
+/* ============================================================
+   RESPONSIVE — MOBILE
+   Simple breakpoint for smaller screens. Nothing fancy needed
+   at this level, just sensible adjustments.
+============================================================ */
+@media (max-width: 600px) {
+  .page {
+    margin: 16px;
+    padding: 24px 20px;
+  }
+
+  nav {
+    padding: 12px 20px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .nav-links {
+    width: 100%;
+  }
+
+  .slots-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .history-table {
+    font-size: 0.8rem;
+  }
+
+  .history-table th,
+  .history-table td {
+    padding: 9px 10px;
+  }
+
+  .profile-card p strong {
+    min-width: unset;
+  }
 }
